@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ControllerMatching {
 
-    @Autowired
-    private UsuarioRepository repository;
-
     //Traz do banco todos os entregadores proximos a posicao do solicitante
     @GetMapping("/entregadores/{posicaoSolicitante}")
     public ResponseEntity getEntregadores(@PathVariable String posicaoSolicitante) {
-        RealizarMatchingEntreUsuariosServico realizarMatching = new RealizarMatchingEntreUsuariosServico(repository, posicaoSolicitante);
+        RealizarMatchingEntreUsuariosServico realizarMatching = new RealizarMatchingEntreUsuariosServico(posicaoSolicitante);
         return realizarMatching.execute();
     }
 }

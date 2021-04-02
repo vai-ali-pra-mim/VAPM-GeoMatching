@@ -4,6 +4,7 @@ import com.example.demo.repositorios.UsuarioRepository;
 import com.example.demo.utils.CalcularDistancia;
 import com.example.demo.utils.Coordenadas;
 import com.example.demo.visoes.UsuarioVisao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -11,11 +12,11 @@ import java.util.List;
 
 public class RealizarMatchingEntreUsuariosServico {
 
-    UsuarioRepository repository;
-    String posicaoSolicitante;
+    @Autowired(required=true)
+    private UsuarioRepository repository;
+    private String posicaoSolicitante;
 
-    public RealizarMatchingEntreUsuariosServico(UsuarioRepository repository, String posicaoSolicitante) {
-        this.repository = repository;
+    public RealizarMatchingEntreUsuariosServico(String posicaoSolicitante) {
         this.posicaoSolicitante = posicaoSolicitante;
     }
 

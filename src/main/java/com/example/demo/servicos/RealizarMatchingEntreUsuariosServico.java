@@ -7,17 +7,18 @@ import com.example.demo.visoes.UsuarioVisao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RealizarMatchingEntreUsuariosServico {
 
-    @Autowired(required=true)
     private UsuarioRepository repository;
     private String posicaoSolicitante;
 
-    public RealizarMatchingEntreUsuariosServico(String posicaoSolicitante) {
+    public RealizarMatchingEntreUsuariosServico( UsuarioRepository repository,String posicaoSolicitante) {
         this.posicaoSolicitante = posicaoSolicitante;
+        this.repository = repository;
     }
 
     public ResponseEntity execute() {
@@ -32,6 +33,8 @@ public class RealizarMatchingEntreUsuariosServico {
             List<UsuarioVisao> usuariosDentroDoRaioDistancia = new ArrayList<>();
 
             for (UsuarioVisao usuario : usuarios) {
+                if(usuario.getCoordenadas().equals("") ||usuario.getCoordenadas() == null )
+                    continue;
 
                 String[] stringCoordenadasEntregador = usuario.getCoordenadas().split(", ");
                 Coordenadas CoordenadasEntregador = new Coordenadas(Double.parseDouble(stringCoordenadasEntregador[0]), Double.parseDouble(stringCoordenadasEntregador[1]));
@@ -41,6 +44,9 @@ public class RealizarMatchingEntreUsuariosServico {
                     usuariosDentroDoRaioDistancia.add(usuario);
             }
 
+            System.out.println(LocalDateTime.now());
+            System.out.println("QTD USUARIOS");
+            System.out.println(usuariosDentroDoRaioDistancia.size());
             if (usuariosDentroDoRaioDistancia.isEmpty())
                 return ResponseEntity.noContent().build();
             else

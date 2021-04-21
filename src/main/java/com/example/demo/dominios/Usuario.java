@@ -1,8 +1,10 @@
-package com.example.vaialipramim.dominios;
-import com.example.demo.dominios.Cartao;
+package com.example.demo.dominios;
+
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
@@ -20,26 +22,30 @@ public class Usuario {
     private String nomeCompleto;
 
     @Length(min = 11, max = 11)
-    @Column(nullable = false)
-    private String CPF;
+    @NumberFormat
+    @Column()
+    private String cPF;
 
     @Past
     @Column(name = "data_nascimento",nullable = false)
     private LocalDate dataNascimento;
 
+    @Email
     @Length(min = 7, max = 65)
     @Column(unique = true,nullable = false)
     private String email;
 
     @Length(min = 10, max = 11)
+    @NumberFormat
     @Column(nullable = false)
     private String telefone;
 
-    @Column(nullable = false)
+    @Column()
+    @NumberFormat
     @Length(min = 8, max = 9)
-    private String CEP;
+    private String cEP;
 
-    @Column(nullable = false)
+    @Column()
     @Length(min = 3, max = 20)
     private String complemento;
 
@@ -77,11 +83,11 @@ public class Usuario {
 
     public Usuario(@Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF, @Past LocalDate dataNascimento, @Length(min = 7, max = 65) String email, @Length(min = 10, max = 11) String telefone, @Length(min = 8, max = 9) String CEP, @Length(min = 3, max = 20) String complemento, Double saldo, String RG, String pontoReferencia, @Length(min = 7, max = 15) String senha, String coordenadas, String fotoRG, String fotoPerfil, Integer ehConsumidor, Cartao cartao) {
         this.nomeCompleto = nomeCompleto;
-        this.CPF = CPF;
+        this.cPF = CPF;
         this.dataNascimento = dataNascimento;
         this.email = email;
         this.telefone = telefone;
-        this.CEP = CEP;
+        this.cEP = CEP;
         this.complemento = complemento;
         this.saldo = saldo;
         this.RG = RG;
@@ -114,13 +120,7 @@ public class Usuario {
         this.nomeCompleto = nomeCompleto;
     }
 
-    public String getCPF() {
-        return CPF;
-    }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
-    }
 
     public LocalDate getDataNascimento() {
         return dataNascimento;
@@ -146,13 +146,7 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public String getCEP() {
-        return CEP;
-    }
 
-    public void setCEP(String CEP) {
-        this.CEP = CEP;
-    }
 
     public String getEmail() {
         return email;
@@ -215,6 +209,22 @@ public class Usuario {
         }
     }
 
+    public String getcPF() {
+        return cPF;
+    }
+
+    public void setcPF(String cPF) {
+        this.cPF = cPF;
+    }
+
+    public String getcEP() {
+        return cEP;
+    }
+
+    public void setcEP(String cEP) {
+        this.cEP = cEP;
+    }
+
     public Cartao getCartao() {
         return cartao;
     }
@@ -245,5 +255,28 @@ public class Usuario {
 
     public void setEhConsumidor(Integer ehConsumidor) {
         this.ehConsumidor = ehConsumidor;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "idUsuario=" + idUsuario +
+                ", nomeCompleto='" + nomeCompleto + '\'' +
+                ", cPF='" + cPF + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", email='" + email + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", cEP='" + cEP + '\'' +
+                ", complemento='" + complemento + '\'' +
+                ", saldo=" + saldo +
+                ", RG='" + RG + '\'' +
+                ", pontoReferencia='" + pontoReferencia + '\'' +
+                ", senha='" + senha + '\'' +
+                ", coordenadas='" + coordenadas + '\'' +
+                ", fotoRG='" + fotoRG + '\'' +
+                ", fotoPerfil='" + fotoPerfil + '\'' +
+                ", ehConsumidor=" + ehConsumidor +
+                ", cartao=" + cartao +
+                '}';
     }
 }

@@ -23,8 +23,8 @@ public class RealizarMatchingEntreUsuariosServico {
 
     public ResponseEntity execute() {
         List<UsuarioVisao> usuarios = repository.findAllSimples();
-        String[] stringPosicaoSolicitante = posicaoSolicitante.split(", ");
-        Coordenadas coordenadasSolicitante = new Coordenadas(Double.parseDouble(stringPosicaoSolicitante[0]), Double.parseDouble(stringPosicaoSolicitante[1]));
+        String[] stringPosicaoSolicitante = posicaoSolicitante.split(",");
+        Coordenadas coordenadasSolicitante = new Coordenadas(Double.parseDouble(stringPosicaoSolicitante[0].trim()), Double.parseDouble(stringPosicaoSolicitante[1]));
 
         if (usuarios.isEmpty()) {
 
@@ -36,8 +36,8 @@ public class RealizarMatchingEntreUsuariosServico {
                 if(usuario.getCoordenadas().equals("") ||usuario.getCoordenadas() == null )
                     continue;
 
-                String[] stringCoordenadasEntregador = usuario.getCoordenadas().split(", ");
-                Coordenadas CoordenadasEntregador = new Coordenadas(Double.parseDouble(stringCoordenadasEntregador[0]), Double.parseDouble(stringCoordenadasEntregador[1]));
+                String[] stringCoordenadasEntregador = usuario.getCoordenadas().split(",");
+                Coordenadas CoordenadasEntregador = new Coordenadas(Double.parseDouble(stringCoordenadasEntregador[0]), Double.parseDouble(stringCoordenadasEntregador[1].trim()));
                 double proximidade = CalcularDistancia.distanciaEmKMEntreCoordenadas(coordenadasSolicitante, CoordenadasEntregador);
 
                 if (proximidade <= 0.500 && proximidade != 0.0 && usuario.getEhConsumidor().equals(0))

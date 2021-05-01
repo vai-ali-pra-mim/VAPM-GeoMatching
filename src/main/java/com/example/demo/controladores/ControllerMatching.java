@@ -18,9 +18,18 @@ public class ControllerMatching {
     @Autowired()
     private UsuarioRepository repository;
 
+    //Traz do banco todos os entregadores
+    @GetMapping("/{posicaoSolicitante/trazerTodos}")
+    public ResponseEntity getEntregadores(@PathVariable String posicaoSolicitante) {
+        System.out.println(posicaoSolicitante);
+
+        RealizarMatchingEntreUsuariosServico realizarMatching = new RealizarMatchingEntreUsuariosServico( repository,posicaoSolicitante);
+        return realizarMatching.executeBringingAll();
+    }
+
     //Traz do banco todos os entregadores proximos a posicao do solicitante
     @GetMapping("/{posicaoSolicitante}")
-    public ResponseEntity getEntregadores(@PathVariable String posicaoSolicitante) {
+    public ResponseEntity getEntregadores1(@PathVariable String posicaoSolicitante) {
         System.out.println(posicaoSolicitante);
 
         RealizarMatchingEntreUsuariosServico realizarMatching = new RealizarMatchingEntreUsuariosServico( repository,posicaoSolicitante);

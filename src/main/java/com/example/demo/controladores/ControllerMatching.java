@@ -19,7 +19,7 @@ public class ControllerMatching {
     private UsuarioRepository repository;
 
     //Traz do banco todos os entregadores
-    @GetMapping("/{posicaoSolicitante/trazerTodos}")
+    @GetMapping("/{posicaoSolicitante}/trazerTodos")
     public ResponseEntity getEntregadores(@PathVariable String posicaoSolicitante) {
         System.out.println(posicaoSolicitante);
 
